@@ -2,9 +2,9 @@
 -- further documentation, see http://haskell.org/cabal/users-guide/
 
 name:                quickcheck-assertions
-version:             0.1.0.0
+version:             0.1.0
 synopsis:            HUnit like assertions for QuickCheck
--- description:         
+description:         Library with convenient assertions for QuickCheck properties like in HUnit
 license:             LGPL-3
 license-file:        LICENSE
 author:              Aleksey Uymanov
@@ -13,6 +13,11 @@ maintainer:          s9gf4ult@gmail.com
 category:            Testing
 build-type:          Simple
 cabal-version:       >=1.8
+homepage:            https://github.com/s9gf4ult/quickcheck-assertions
+source-repository head
+  type:           git
+  location:       git://github.com/s9gf4ult/quickcheck-assertions.git
+  
 
 library
   exposed-modules:     Test.QuickCheck.Assertions
