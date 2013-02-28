@@ -1,5 +1,56 @@
+{- | Module provides convenient functions to do some assertions in QuickCheck properties with pretty printed reasons.
+For example you can do something like that:
+
+> module Main where
+> 
+> import Test.Hspec
+> import Test.Hspec.QuickCheck
+> import Test.QuickCheck.Assertions
+> import Test.QuickCheck.Property
+> 
+> someProp :: Int -> Int -> Result
+> someProp a b = (a ?> b)
+> 
+> someOtherProp :: Double -> Double -> Result
+> someOtherProp a b = (a ?== b)
+>                
+> main = hspec $ describe "failing test" $ do
+>   prop "must fail" $ someProp
+>   prop "must fail again" $ someOtherProp
+
+And receive pretty printed fail message when testing:
+
+> failing test
+>   - must fail FAILED [1]                    
+>   - must fail again FAILED [2]                             
+> 
+> 1) failing test must fail FAILED
+> *** Failed! (after 1 test): 
+> >>>>>>>>>>>>>> the value
+> 0
+> >>>>>>>>>>>>>> should be greater than value
+> 0
+> 0
+> 0
+> 
+> 
+> 2) failing test must fail again FAILED
+> *** Failed! (after 2 tests and 4 shrinks): 
+> >>>>>>>>>>>>>> expected
+> 0.0
+> >>>>>>>>>>>>>> but got
+> 1.0
+> 0.0
+> 1.0
+
+Ok, not very well printed, but better than nothing.
+-}
 module Test.QuickCheck.Assertions (
   binAsrt
+  , (?==)
+  , (==?)
+  , (/=?)
+  , (?/=)
   , (>?)
   , (<?)
   , (?>)
@@ -20,7 +71,7 @@ import Data.AEq
 binAsrt ::    String -- ^ The reason of fail
            -> Bool   -- ^ If True then test pass
            -> Result -- ^ The result with fail reason
-binAsrt fmt pred = if pred
+binAsrt fmt pre = if pre
                    then succeeded
                    else failed {reason = fmt}
 
@@ -28,12 +79,22 @@ binAsrt fmt pred = if pred
 (==?), (?==) :: (Eq a, Show a) => a -> a -> Result
 (?==) a b = binAsrt s (a == b)
   where
-    s = ">>>>>>>>>>>>>> expected\n"
+    s = ">>>>>>>>>>>>>> expected\n" -- very stupid formater for now
         ++ show a ++
         "\n>>>>>>>>>>>>>> but got\n"
         ++ show b
 
-(==?) = flip (==?)
+(==?) = flip (?==)
+
+(?/=), (/=?) :: (Eq a, Show a) => a -> a -> Result
+(?/=) a b = binAsrt s (a /= b)
+  where
+    s = ">>>>>>>>>>>>>> expected the value\n"
+        ++ show a ++
+        "\n>>>>>>>>>>>>>> should not equal to\n"
+        ++ show b
+
+(/=?) = flip (?/=)
 
 
 binOrdering :: (Show a, Ord a)
@@ -42,7 +103,7 @@ binOrdering :: (Show a, Ord a)
                -> a
                -> a
                -> Result
-binOrdering pred fmt a b = binAsrt s (pred $ compare a b)
+binOrdering pre fmt a b = binAsrt s (pre $ compare a b)
   where
     s = ">>>>>>>>>>>>>> the value\n"
         ++ show a ++

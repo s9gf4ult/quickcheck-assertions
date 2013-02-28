@@ -20,12 +20,15 @@ library
   build-depends:       base == 4.*
                      , QuickCheck >= 2.3
                      , ieee754
+  ghc-options:     -Wall
 
 test-suite main
   type:            exitcode-stdio-1.0
   build-depends:      base == 4.*
                     , QuickCheck >= 2.3
                     , hspec
-  ghc-options:     -Wall -rtsopts -fhpc
+                    , quickcheck-assertions
+                    , ieee754
+  ghc-options:     -Wall -rtsopts
   hs-source-dirs:  tests
   main-is:         main.hs
