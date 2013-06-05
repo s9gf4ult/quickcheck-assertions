@@ -2,7 +2,7 @@
 -- further documentation, see http://haskell.org/cabal/users-guide/
 
 name:                quickcheck-assertions
-version:             0.1.0
+version:             0.1.1
 synopsis:            HUnit like assertions for QuickCheck
 description:         Library with convenient assertions for QuickCheck properties like in HUnit
 license:             LGPL-3
