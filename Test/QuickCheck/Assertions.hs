@@ -46,6 +46,7 @@ And receive pretty printed fail message when testing:
 Ok, not very well printed, but better than nothing.
 -}
 module Test.QuickCheck.Assertions (
+  -- * Assertions
   binAsrt
   , (?==)
   , (==?)
@@ -61,6 +62,8 @@ module Test.QuickCheck.Assertions (
   , (?<=)
   , (~==?)
   , (?~==)
+  -- * Reexports
+  , Result
   ) where
 
 import Test.QuickCheck.Property
