@@ -1,5 +1,5 @@
 name:                quickcheck-assertions
-version:             0.1.1
+version:             0.2.0
 synopsis:            HUnit like assertions for QuickCheck
 description:         Library with convenient assertions for QuickCheck properties like in HUnit
 license:             LGPL-3
