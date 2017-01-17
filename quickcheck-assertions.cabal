@@ -1,5 +1,5 @@
 name:                quickcheck-assertions
-version:             0.2.0
+version:             0.3.0
 synopsis:            HUnit like assertions for QuickCheck
 description:         Library with convenient assertions for QuickCheck properties like in HUnit
 license:             LGPL-3
@@ -11,6 +11,10 @@ category:            Testing
 build-type:          Simple
 cabal-version:       >=1.8
 homepage:            https://github.com/s9gf4ult/quickcheck-assertions
+
+extra-source-files: CHANGELOG.md
+                  , README.md
+
 source-repository head
   type:           git
   location:       git://github.com/s9gf4ult/quickcheck-assertions.git
