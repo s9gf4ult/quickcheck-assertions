@@ -66,27 +66,27 @@ module Test.QuickCheck.Assertions (
   , Result
   ) where
 
-import Test.QuickCheck.Property
 import Data.AEq
+import Test.QuickCheck.Property
+import Text.Show.Pretty
 
-
-
-binAsrt ::   String -- ^ The reason of fail
-           -> Bool   -- ^ If True then test pass
-           -> Result -- ^ The result with fail reason
-binAsrt fmt pre = if pre
-                   then succeeded
-                   else failed {reason = fmt}
-
+binAsrt
+  :: String -- ^ The reason of fail
+  -> Bool   -- ^ If True then test pass
+  -> Result -- ^ The result with fail reason
+binAsrt fmt pre =
+  if pre
+  then succeeded
+  else failed {reason = fmt}
 
 -- | Left argument should be equal to right
 (?==) :: (Eq a, Show a) => a -> a -> Result
 (?==) a b = binAsrt s (a == b)
   where
     s = "\n>>>>>>>>>>>>>> expected\n" -- very stupid formater for now
-        ++ show b ++
+        ++ ppShow b ++
         "\n>>>>>>>>>>>>>> but got\n"
-        ++ show a
+        ++ ppShow a
 
 -- | Right argument should be equal to left
 (==?) :: (Eq a, Show a) => a -> a -> Result
@@ -97,9 +97,9 @@ binAsrt fmt pre = if pre
 (?/=) a b = binAsrt s (a /= b)
   where
     s = "\n>>>>>>>>>>>>>> expected the value\n"
-        ++ show a ++
+        ++ ppShow a ++
         "\n>>>>>>>>>>>>>> should not equal to\n"
-        ++ show b
+        ++ ppShow b
 
 -- | Right argument should not equal to left
 (/=?) :: (Eq a, Show a) => a -> a -> Result
@@ -115,9 +115,9 @@ binOrdering :: (Show a, Ord a)
 binOrdering pre fmt a b = binAsrt s (pre $ compare a b)
   where
     s = "\n>>>>>>>>>>>>>> the value\n"
-        ++ show a ++
+        ++ ppShow a ++
         "\n>>>>>>>>>>>>>> should be " ++ fmt ++ " than value\n"
-        ++ show b
+        ++ ppShow b
 
 
 -- | Left argument is greater than right
@@ -157,9 +157,9 @@ binOrdering pre fmt a b = binAsrt s (pre $ compare a b)
 (?~==) a b = binAsrt s (a ~== b)
   where
     s = "\n>>>>>>>>>>>>>> The value\n"
-        ++ show a ++
+        ++ ppShow a ++
         "\n>>>>>>>>>>>>>> should be almost equal to\n"
-        ++ show b
+        ++ ppShow b
 
 -- | Right value is almost equal to left
 (~==?) :: (AEq a, Show a) => a -> a -> Result

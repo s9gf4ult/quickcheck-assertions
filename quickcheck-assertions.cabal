@@ -19,9 +19,10 @@ source-repository head
 library
   exposed-modules:     Test.QuickCheck.Assertions
   -- other-modules:
-  build-depends:       base == 4.*
-                     , QuickCheck >= 2.3
+  build-depends:       QuickCheck >= 2.3
+                     , base == 4.*
                      , ieee754
+                     , pretty-show
   ghc-options:     -Wall
 
 test-suite main
